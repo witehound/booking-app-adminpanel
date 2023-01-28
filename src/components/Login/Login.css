@@ -1,0 +1,37 @@
+.login {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ltop {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.lcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.lcontainer > input {
+  width: 200px;
+  height: 30px;
+  padding: 2px;
+  outline: none;
+}
+
+.lcontainer > button {
+  width: fit-content;
+  background-color: #0071c2;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0 20px;
+}
