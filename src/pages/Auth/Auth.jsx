@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./Auth.css";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
@@ -38,6 +38,7 @@ const Auth = () => {
       });
       if (response.data.isAdmin) {
         dispatch({ type: "LOGIN_SUCCESS", payload: response.data.details });
+        localStorage.setItem("user", JSON.stringify(response.data.details));
         navigate("/");
       } else {
         dispatch({
@@ -46,19 +47,26 @@ const Auth = () => {
         });
       }
     } catch (error) {
-      dispatch({ type: "LOGIN_FAIL", payload: error.response?.data });
+      let payload = error.response.data.message;
+      dispatch({ type: "LOGIN_FAIL", payload });
     }
   };
+
+  useEffect(() => {
+    if (user) navigate("/home");
+  }, [user]);
 
   return (
     <div className="auth">
       {isLoggin ? (
-        <Login
-          handleChangeInputValues={handleChangeInputValues}
-          err={err}
-          handleLogin={handleLogin}
-          loading={loading}
-        />
+        <div>
+          <Login
+            handleChangeInputValues={handleChangeInputValues}
+            err={err}
+            handleLogin={handleLogin}
+            loading={loading}
+          />
+        </div>
       ) : null}
     </div>
   );

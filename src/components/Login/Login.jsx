@@ -10,6 +10,7 @@ const Login = ({ handleChangeInputValues, err, handleLogin, loading }) => {
         <FontAwesomeIcon icon={faUser} />
         <h2>Login</h2>
       </div>
+
       <div className="lcontainer">
         <input
           type="text"
@@ -32,7 +33,7 @@ const Login = ({ handleChangeInputValues, err, handleLogin, loading }) => {
         >
           {loading ? <>Loading</> : "Login"}
         </button>
-        {err && <span>{err.message}</span>}
+        {err && <span className="lerr">{err}</span>}
       </div>
     </div>
   );

@@ -3,15 +3,16 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Single = () => {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-
-  if (!user) naviagte("/auth");
+  if (!user) {
+    navigate("/");
+  }
   return (
     <div className="single">
       <Sidebar />

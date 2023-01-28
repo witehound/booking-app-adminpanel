@@ -35,3 +35,9 @@
   cursor: pointer;
   margin: 0 20px;
 }
+
+.lerr {
+  font-weight: 500;
+  font-size: medium;
+  color: black;
+}

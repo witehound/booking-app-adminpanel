@@ -5,16 +5,16 @@ import Widget from "../../components/widget/Widget";
 import Featured from "../../components/featured/Featured";
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-
-  if (!user) naviagte("/auth");
-
+  if (!user) {
+    navigate("/");
+  }
   return (
     <div className="home">
       <Sidebar />

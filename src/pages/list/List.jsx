@@ -2,15 +2,16 @@ import "./list.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Datatable from "../../components/datatable/Datatable";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const List = () => {
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-
-  if (!user) naviagte("/auth");
+  if (!user) {
+    navigate("/");
+  }
   return (
     <div className="list">
       <Sidebar />
