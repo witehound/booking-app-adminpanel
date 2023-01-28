@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Login from "../../components/Login/Login";
 
-const API_BASE_URL = "";
+const API_BASE_URL = process.env.REACT_APP_VITE_API_BASE_URL;
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -36,8 +36,15 @@ const Auth = () => {
         userName: credentials.userName,
         password: credentials.password,
       });
-      dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
-      navigate("/");
+      if (response.data.isAdmin) {
+        dispatch({ type: "LOGIN_SUCCESS", payload: response.data.details });
+        navigate("/");
+      } else {
+        dispatch({
+          type: "LOGIN_FAIL",
+          payload: { message: "you are not an admin " },
+        });
+      }
     } catch (error) {
       dispatch({ type: "LOGIN_FAIL", payload: error.response?.data });
     }
