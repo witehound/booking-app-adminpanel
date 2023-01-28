@@ -3,16 +3,8 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
-import { AuthContext } from "../../context/authContext";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 
 const New = ({ inputs, title }) => {
-  const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-  if (!user) {
-    navigate("/");
-  }
   const [file, setFile] = useState("");
 
   return (

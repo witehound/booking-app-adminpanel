@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import "./Auth.css";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
@@ -51,10 +51,6 @@ const Auth = () => {
       dispatch({ type: "LOGIN_FAIL", payload });
     }
   };
-
-  useEffect(() => {
-    if (user) navigate("/home");
-  }, [user]);
 
   return (
     <div className="auth">
