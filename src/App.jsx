@@ -38,7 +38,11 @@ function App() {
           <Route path="users">
             <Route
               path="new"
-              element={<New inputs={userInputs} title="Add New User" />}
+              element={
+                <ProtectedRoute>
+                  <New inputs={userInputs} title="Add New User" />
+                </ProtectedRoute>
+              }
             />
           </Route>
           <Route path="products">
@@ -60,7 +64,11 @@ function App() {
             />
             <Route
               path="new"
-              element={<New inputs={productInputs} title="Add New Product" />}
+              element={
+                <ProtectedRoute>
+                  <New inputs={productInputs} title="Add New Product" />
+                </ProtectedRoute>
+              }
             />
           </Route>
         </Routes>
