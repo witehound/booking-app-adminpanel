@@ -1,7 +1,7 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import useFetch from "../../hooks/useFetch";
 import { useState } from "react";
@@ -10,6 +10,8 @@ import { useEffect } from "react";
 const API_BASE_URL = process.env.REACT_APP_VITE_API_BASE_URL;
 
 const Datatable = () => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
   const { data, error, loading } = useFetch(`${API_BASE_URL}/user`);
 
@@ -18,8 +20,9 @@ const Datatable = () => {
       await axios.delete(`${API_BASE_URL}/user/${id}`, {
         withCredentials: true,
       });
+
+      setList(list.filter((item) => item._id !== id));
     } catch (error) {}
-    setList(list.filter((item) => item._id !== id));
   };
 
   useEffect(() => {
@@ -58,7 +61,7 @@ const Datatable = () => {
       </div>
       <DataGrid
         className="datagrid"
-        rows={data}
+        rows={list}
         columns={userColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
