@@ -1,6 +1,6 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+// import { userColumns, userRows } from "../../datatablesource";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import useFetch from "../../hooks/useFetch";
@@ -9,15 +9,15 @@ import { useEffect } from "react";
 
 const API_BASE_URL = process.env.REACT_APP_VITE_API_BASE_URL;
 
-const Datatable = () => {
+const Datatable = ({ columns }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
-  const { data, error, loading } = useFetch(`${API_BASE_URL}/user`);
+  const { data, error, loading } = useFetch(`${API_BASE_URL}/${path}`);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${API_BASE_URL}/user/${id}`, {
+      await axios.delete(`${API_BASE_URL}/${path}/${id}`, {
         withCredentials: true,
       });
 
@@ -26,8 +26,12 @@ const Datatable = () => {
   };
 
   useEffect(() => {
+    setList([]);
+  }, []);
+
+  useEffect(() => {
     setList(data);
-  }, [data]);
+  }, [data, loading]);
 
   const actionColumn = [
     {
@@ -37,7 +41,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
+            <Link to={`/${path}/test`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -55,14 +59,14 @@ const Datatable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Add New User
-        <Link to="/users/new" className="link">
+        <Link to={`/${path}/new`} className="link">
           Add New
         </Link>
       </div>
       <DataGrid
         className="datagrid"
         rows={list}
-        columns={userColumns.concat(actionColumn)}
+        columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection

@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { userColumns, HotelColumns, roomColumns } from "./datatablesource";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -29,12 +30,12 @@ function App() {
               }
             />
 
-            <Route path="users">
+            <Route path="user">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <List />
+                    <List columns={userColumns} />
                   </ProtectedRoute>
                 }
               />
@@ -55,12 +56,39 @@ function App() {
                 }
               />
             </Route>
-            <Route path="products">
+            <Route path="hotel">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <List />
+                    <List columns={HotelColumns} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path=":productId"
+                element={
+                  <ProtectedRoute>
+                    <Single />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <ProtectedRoute>
+                    {" "}
+                    <New inputs={productInputs} title="Add New Product" />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+            <Route path="room">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <List columns={roomColumns} />
                   </ProtectedRoute>
                 }
               />
